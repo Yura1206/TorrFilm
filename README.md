@@ -49,18 +49,18 @@
 
 <br/><br/>
 
+### Меню действий с раздачей (TorrServer, magnet, плееры)
+<img src="assets/screenshots/5.png" alt="Меню действий с раздачей" width="850" />
+
+<br/><br/>
+
 ### Раздел «Просмотренное» (история запусков)
-<img src="assets/screenshots/5.png" alt="История просмотров" width="850" />
+<img src="assets/screenshots/6.png" alt="Раздел Просмотренное" width="850" />
 
 <br/><br/>
 
 ### Раздел «Избранное» (сохранённые раздачи)
-<img src="assets/screenshots/6.png" alt="Избранное" width="850" />
-
-<br/><br/>
-
-### Меню действий с раздачей (TorrServer, magnet, плееры)
-<img src="assets/screenshots/7.png" alt="Действия с торрентом" width="850" />
+<img src="assets/screenshots/7.png" alt="Раздел Избранное" width="850" />
 
 <br/><br/>
 
