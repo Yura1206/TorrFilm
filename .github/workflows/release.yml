@@ -1,0 +1,48 @@
+name: Publish TorrFilm Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish-release:
+    name: Create GitHub Release and Upload APK
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.2
+          name: "TorrFilm v1.0.2 (Android TV)"
+          body: |
+            ### 📥 TorrFilm v1.0.2 для Android TV / Google TV
+
+            Поисковик и агрегатор торрент-раздач для телевизоров и медиаприставок.
+
+            #### Что нового в версии 1.0.2:
+            - Оптимизация интерфейса под экраны 1080p и 4K Android TV
+            - Улучшена калибровка постраничной навигации пультом в режимах «Сетка» и «Список»
+            - Адаптивные фильтры качества, динамического диапазона (HDR/DV), года и сезонов сериалов
+            - Поддержка голосового поиска с пульта ДУ
+            - Интеграция с локальным и сетевым TorrServer (Matrix)
+            - Онлайн-просмотр в сторонних видеоплеерах (Vimu, Just Player, VLC, MX Player)
+            - Разделы «Найденное», «Просмотренное» и «Избранное»
+            - Динамическая витрина новинок кино и сериалов с описанием и рейтингами Кинопоиск/IMDb
+
+            #### Файлы для скачивания:
+            - Скачайте **TorrFilm.apk** ниже и установите на ТВ или медиаприставку.
+          files: |
+            release/TorrFilm.apk
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
