@@ -13,8 +13,6 @@
 ### 📥 [Скачать TorrFilm.apk (v1.0.3)](https://github.com/Yura1206/TorrFilm/releases/latest/download/TorrFilm.apk)
 *(Прямая ссылка на загрузку актуальной версии)*
 
-> 📦 **Предыдущие версии:** [TorrFilm v1.0.2](https://github.com/Yura1206/TorrFilm/releases/download/v1.0.2/TorrFilm.apk) *(архивные файлы APK также доступны в папке [`release/`](release/))*.
-
 </div>
 
 ---
