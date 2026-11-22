@@ -17,14 +17,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Publish GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: TorrFilm ${{ github.ref_name }} (Android TV)
-          body_path: .github/release_notes.md
-          files: |
-            release/TorrFilm.apk
-          prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'test') }}
+      - name: Upload Release Asset
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          echo "Processing tag: ${TAG}"
+
+          PRERELEASE_FLAG=""
+          if [[ "${TAG}" == *"beta"* || "${TAG}" == *"test"* ]]; then
+            PRERELEASE_FLAG="--prerelease"
+          fi
+
+          if gh release view "${TAG}" >/dev/null 2>&1; then
+            echo "Release ${TAG} exists. Uploading asset with --clobber..."
+            gh release upload "${TAG}" release/TorrFilm.apk --clobber
+          else
+            echo "Release ${TAG} does not exist. Creating..."
+            gh release create "${TAG}" release/TorrFilm.apk \
+              --title "TorrFilm ${TAG} (Android TV)" \
+              --notes-file .github/release_notes.md \
+              ${PRERELEASE_FLAG}
+          fi
