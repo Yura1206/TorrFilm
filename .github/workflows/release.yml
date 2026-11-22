@@ -22,14 +22,23 @@ jobs:
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF_NAME: ${{ github.ref_name }}
         run: |
-          TAG="${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'v1.0.5' }}"
+          if [[ "${REF_NAME}" =~ ^v[0-9] ]]; then
+            TAG="${REF_NAME}"
+          else
+            TAG="v1.0.5"
+          fi
+          
           TITLE="TorrFilm ${TAG} (Android TV)"
           
           PRERELEASE_FLAG=""
           if [[ "${TAG}" == *"beta"* || "${TAG}" == *"test"* ]]; then
             PRERELEASE_FLAG="--prerelease"
           fi
+
+          echo "Target TAG is: ${TAG}"
+          echo "PRERELEASE_FLAG is: ${PRERELEASE_FLAG}"
 
           if gh release view "${TAG}" >/dev/null 2>&1; then
             echo "Release ${TAG} exists. Updating notes and uploading asset..."
