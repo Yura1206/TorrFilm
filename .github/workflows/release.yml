@@ -31,10 +31,14 @@ jobs:
             PRERELEASE_FLAG="--prerelease"
           fi
 
-          gh release delete "${TAG}" -y || true
-
-          gh release create "${TAG}" release/TorrFilm.apk \
-            --title "${TITLE}" \
-            --notes-file .github/release_notes.md \
-            ${PRERELEASE_FLAG} \
-            --clobber
+          if gh release view "${TAG}" >/dev/null 2>&1; then
+            echo "Release ${TAG} exists. Updating notes and uploading asset..."
+            gh release edit "${TAG}" --title "${TITLE}" --notes-file .github/release_notes.md ${PRERELEASE_FLAG}
+            gh release upload "${TAG}" release/TorrFilm.apk --clobber
+          else
+            echo "Creating new release ${TAG}..."
+            gh release create "${TAG}" release/TorrFilm.apk \
+              --title "${TITLE}" \
+              --notes-file .github/release_notes.md \
+              ${PRERELEASE_FLAG}
+          fi
