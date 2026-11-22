@@ -45,5 +45,6 @@ jobs:
           files: |
             release/TorrFilm.apk
           prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'test') }}
+          overwrite: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
